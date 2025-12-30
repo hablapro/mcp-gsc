@@ -202,7 +202,7 @@ export const checkPageExperienceTool: Tool = {
         return { content: [{ type: "text", text: client.error }] };
       }
 
-      const urlList = urls.split('\n').map(u => u.trim()).filter(u => u).slice(0, 10);
+      const urlList = urls.split(/[\n,]/).map(u => u.trim()).filter(u => u).slice(0, 10);
 
       let output = `Page Experience Report for ${site_url}\n`;
       output += `${'='.repeat(60)}\n`;
@@ -325,7 +325,7 @@ export const getCoverageReportTool: Tool = {
         return { content: [{ type: "text", text: client.error }] };
       }
 
-      const urlList = urls.split('\n').map(u => u.trim()).filter(u => u).slice(0, 25);
+      const urlList = urls.split(/[\n,]/).map(u => u.trim()).filter(u => u).slice(0, 25);
 
       const issues: { [key: string]: string[] } = {
         'Indexed': [],
