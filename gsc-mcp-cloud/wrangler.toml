@@ -1,0 +1,18 @@
+name = "gsc-mcp-cloud"
+main = "src/index.ts"
+compatibility_date = "2024-10-08"
+compatibility_flags = ["nodejs_compat"]
+
+# KV namespace for OAuth token storage
+[[kv_namespaces]]
+binding = "OAUTH_KV"
+id = "4137d0b4fe464049b9220b517256cac4"
+preview_id = "139371485ffa43ccbedaff3df5e31ce3"
+
+[vars]
+DEBUG = "false"
+GOOGLE_REDIRECT_URI = "https://gsc-mcp-cloud.principal-e85.workers.dev/auth-callback"
+
+# Secrets (set via: wrangler secret put GOOGLE_CLIENT_ID)
+# GOOGLE_CLIENT_ID
+# GOOGLE_CLIENT_SECRET
