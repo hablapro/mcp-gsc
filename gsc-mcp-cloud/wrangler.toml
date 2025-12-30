@@ -1,6 +1,7 @@
 name = "gsc-mcp-cloud"
 main = "src/index.ts"
 compatibility_date = "2024-10-08"
+account_id = "e85d12a89ad63b696720f497e3f1a662"
 compatibility_flags = ["nodejs_compat"]
 
 # KV namespace for OAuth token storage
