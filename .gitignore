@@ -38,6 +38,7 @@ desktop.ini
 .coverage
 .coverage.*
 htmlcov/
+coverage/
 .pytest_cache/
 .tox/
 nosetests.xml
