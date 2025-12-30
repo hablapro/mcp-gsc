@@ -227,6 +227,15 @@ npm run deploy
 
 ## Changelog
 
+### v1.3.0 - December 30, 2025, 07:05 UTC
+**CI/CD & Testing**
+- Added Vitest testing framework with 53 unit tests
+- Test coverage: 80%+ for SEO analysis tools
+- Added GitHub Actions workflow for automated testing on push/PR
+- Added GitHub Actions workflow for automated Cloudflare Workers deployment
+- Deployment triggers on changes to `gsc-mcp-cloud/` directory
+- Added CI status badges to README
+
 ### v1.2.1 - December 30, 2025, 05:50 UTC
 **URL Parsing Fix**
 - Fixed `check_page_experience` and `get_coverage_report` to accept both comma-separated and newline-separated URL lists
