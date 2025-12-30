@@ -1,5 +1,7 @@
 # Google Search Console MCP Server
 
+[![Tests](https://github.com/hablapro/mcp-gsc/actions/workflows/test.yml/badge.svg)](https://github.com/hablapro/mcp-gsc/actions/workflows/test.yml)
+
 A Model Context Protocol (MCP) server that connects AI assistants (ChatGPT, Claude, custom agents) with Google Search Console data. Analyze your SEO data through natural language conversations - ask questions, get insights, and take action without navigating dashboards.
 
 **Production Endpoint:** `https://gsc-mcp-cloud.principal-e85.workers.dev`
