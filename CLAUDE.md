@@ -14,7 +14,7 @@ The project has two main components:
 - Main entry point for Claude Desktop integration
 - Uses FastMCP framework with stdio transport
 - Authenticates via OAuth (personal account) or Service Account credentials
-- Defines 19 MCP tools for GSC operations
+- Defines 26 MCP tools for GSC operations
 - Credential resolution order: `GSC_CREDENTIALS_PATH` env var → `service_account_credentials.json` in script dir → current dir
 
 ### 2. Cloudflare Workers Server (`gsc-mcp-cloud/`)
@@ -22,7 +22,7 @@ The project has two main components:
 - Uses Hono framework for HTTP handling
 - Implements MCP over SSE (Server-Sent Events)
 - OAuth tokens stored in Cloudflare KV (`OAUTH_KV` binding)
-- Tools organized in `src/tools/`: propertyTools, analyticsTools, inspectionTools, sitemapTools
+- Tools organized in `src/tools/`: propertyTools, analyticsTools, inspectionTools, sitemapTools, seoAnalysisTools, gscActions
 
 ## Commands
 
@@ -73,12 +73,26 @@ echo "client-secret" | npx wrangler secret put GOOGLE_CLIENT_SECRET
 - `GOOGLE_REDIRECT_URI`: OAuth callback URL
 - `DEBUG`: Enable debug logging
 
-## Tool Categories
+## Tool Categories (26 Total)
 
-1. **Property Management**: list_properties, add_site, delete_site, get_site_details
-2. **Search Analytics**: get_search_analytics, get_performance_overview, get_advanced_search_analytics, compare_search_periods, get_search_by_page_query
-3. **URL Inspection**: inspect_url_enhanced, batch_url_inspection, check_indexing_issues
-4. **Sitemap Management**: get_sitemaps, submit_sitemap, delete_sitemap, list_sitemaps_enhanced, get_sitemap_details, manage_sitemaps
+1. **OpenAI MCP Integration** (2): search, fetch
+2. **Property Management** (4): list_properties, add_site, delete_site, get_site_details
+3. **Search Analytics** (5): get_search_analytics, get_performance_overview, get_advanced_search_analytics, compare_search_periods, get_search_by_page_query
+4. **URL Inspection** (3): inspect_url_enhanced, batch_url_inspection, check_indexing_issues
+5. **Sitemap Management** (5): get_sitemaps, submit_sitemap, delete_sitemap, list_sitemaps_enhanced, get_sitemap_details
+6. **SEO Analysis** (7): find_high_potential_keywords, check_page_experience, get_coverage_report, analyze_backlinks, spot_content_opportunities, analyze_regional_device_performance, analyze_algorithm_impact
+
+### SEO Analysis Tools Details
+
+| Tool | Purpose |
+|------|---------|
+| `find_high_potential_keywords` | Keywords ranking 11-40 (striking distance) + low CTR opportunities |
+| `check_page_experience` | Mobile usability, crawl status, indexing state (note: no CWV via API) |
+| `get_coverage_report` | Comprehensive indexing analysis with issue breakdown |
+| `analyze_backlinks` | Page authority based on search visibility (no external links via API) |
+| `spot_content_opportunities` | Rising/declining queries, content refresh candidates |
+| `analyze_regional_device_performance` | Country/device breakdown, mobile gaps |
+| `analyze_algorithm_impact` | Before/after comparison for algorithm updates |
 
 ## API Endpoints (Cloud Server)
 
@@ -120,3 +134,23 @@ Tool schemas use Zod with descriptive error messages:
 - Date format validation (YYYY-MM-DD) for period parameters
 - Numeric range validation (e.g., days: 1-540 for GSC API limits)
 - Dimension validation (query, page, device, country, date)
+
+## GSC API Limitations
+
+Important constraints when working with GSC API:
+- **Max lookback**: 540 days (16 months)
+- **Max rows per query**: 25,000
+- **URL inspections**: 2,000 per day per property
+- **No external backlinks**: Only available in GSC Web UI
+- **No Core Web Vitals**: Use PageSpeed Insights API or CrUX
+- **Data delay**: Typically 2-3 days behind real-time
+
+## Helper Functions (`src/utils/gscHelper.ts`)
+
+Utility functions for SEO analysis:
+- `getAuthenticatedClient()`: Returns authenticated GSC client or error
+- `calculatePercentageChange(before, after)`: Calculate % change between values
+- `formatChange(value, decimals)`: Format number with +/- sign
+- `formatDate(date)`: Format as YYYY-MM-DD
+- `getDateRange(days)`: Get start/end date for analysis period
+- `getExpectedCTR(position)`: Expected CTR based on SERP position (1-20+)
