@@ -45,6 +45,17 @@ import {
   deleteSitemapTool
 } from "./sitemapTools";
 
+// Import SEO Analysis Tools
+import {
+  findHighPotentialKeywordsTool,
+  checkPageExperienceTool,
+  getCoverageReportTool,
+  analyzeBacklinksTool,
+  spotContentOpportunitiesTool,
+  analyzeRegionalDevicePerformanceTool,
+  analyzeAlgorithmImpactTool
+} from "./seoAnalysisTools";
+
 // Tool registry - includes OpenAI MCP required tools + all GSC tools
 export const toolRegistry: Tool[] = [
   // OpenAI MCP required tools (MUST be first for ChatGPT integration)
@@ -75,4 +86,13 @@ export const toolRegistry: Tool[] = [
   listSitemapsEnhancedTool,
   getSitemapDetailsTool,
   deleteSitemapTool,
+
+  // SEO Analysis Tools
+  findHighPotentialKeywordsTool,
+  checkPageExperienceTool,
+  getCoverageReportTool,
+  analyzeBacklinksTool,
+  spotContentOpportunitiesTool,
+  analyzeRegionalDevicePerformanceTool,
+  analyzeAlgorithmImpactTool,
 ];
